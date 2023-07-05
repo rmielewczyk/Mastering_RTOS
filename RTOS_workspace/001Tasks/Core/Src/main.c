@@ -97,11 +97,11 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
-  xTaskCreate(task1_handler, "Task-1", 200, "Hello world from Task-1", 2, &task1_handle);
+  status = xTaskCreate(task1_handler, "Task-1", 200, "Hello world from Task-1", 2, &task1_handle);
 
   configASSERT(status == pdPASS);
 
-  xTaskCreate(task2_handler, "Task-2", 200, "Hello world from Task-2", 2, &task2_handle);
+  status = xTaskCreate(task2_handler, "Task-2", 200, "Hello world from Task-2", 2, &task2_handle);
 
   configASSERT(status == pdPASS);
 
@@ -316,6 +316,7 @@ static void task1_handler(void* parameters)
 	while(1)
 	{
 		printf("%s\n", (char*)parameters);
+		taskYIELD();
 	}
 }
 
@@ -324,6 +325,7 @@ static void task2_handler(void* parameters)
 	while(1)
 	{
 		printf("%s\n", (char*)parameters);
+		taskYIELD();
 	}
 }
 /* USER CODE END 4 */
